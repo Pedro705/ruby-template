@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+# General dependencies #
+apk add --update \
+  bash build-base libffi-dev libxml2-dev libxslt-dev yaml-dev zlib-dev \
+  git nano nodejs-current npm postgresql-dev yarn gcc \
+  tzdata jemalloc \
+  && ln -s /usr/lib/libjemalloc.so.2 /usr/lib/libjemalloc.so \
+  && gem install bundler
+
+# Install development dependencies #
+if [ "$RAILS_ENV" = "development" ]; then
+  apk add --update sudo zsh openssh git-crypt
+fi
